@@ -27,8 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-      working-directory: ./speedylux-rent/speedylux-backend
+      working-directory: ./speedylux-backend
     - run: npm run build --if-present
-      working-directory: ./speedylux-rent/speedylux-backend
+      working-directory: ./speedylux-backend
     - run: npm test
-      working-directory: ./speedylux-rent/speedylux-backend
+      working-directory: ./speedylux-backend
