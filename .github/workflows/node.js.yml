@@ -6,8 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+ 
 
 jobs:
   build:
@@ -21,7 +20,7 @@ jobs:
 
     defaults:
        run:
-         working-directory: speedylux-backend
+        working-directory: speedylux-backend
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
