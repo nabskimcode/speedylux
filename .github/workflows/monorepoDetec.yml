@@ -12,7 +12,7 @@ on:
 jobs:
   # merely using it as a testing only this job
   a-test:
-    runs-on: RUNNER-LINUX2
+    runs-on: ubuntu-latest
     if: ${{false}}
     steps:
       # the quotation matter to ignore the newline
