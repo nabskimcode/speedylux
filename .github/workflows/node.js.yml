@@ -9,37 +9,26 @@ on:
  
 
 jobs:
-  build:
-
+  ts:
     runs-on: ubuntu-latest
-
+    
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
- 
+        
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: speedylux-backend
     steps:
-    - name: Checkout
-    - uses: actions/checkout@v3
-    
-    - name: Detect New Changes in Monorepo
-      uses: dorny/paths-filter@v2
-      id: changes
-      with:
-          base: ${{ github.ref }}
-          filters: |
-            backend: 
-              - 'speedylux-backend/**'
-            
-           
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-      working-directory: speedylux-backend
-    - run: npm run build --if-present
-      working-directory: speedylux-backend
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+         node-version: ${{ matrix.node-version }}
+         cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
 
+     
