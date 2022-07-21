@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Detect New Changes in Monorepo
-      uses: nabs/paths-filter@v2
+      uses: nabs/speedylux-backend@v3
       id: changes
       with:
           base: ${{ github.ref }}
