@@ -1,0 +1,73 @@
+# This based on the SIT Deployment, when PR to the release branch
+name: MSS Deploy UAT
+
+  
+# Allow manual trigger for this one also
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+ 
+
+jobs:
+  # merely using it as a testing only this job
+  a-test:
+    runs-on: RUNNER-LINUX2
+    if: ${{false}}
+    steps:
+      # the quotation matter to ignore the newline
+      - run: echo hello
+
+  deploy:
+    name: Build & Deploy Application
+    #runs-on: PROD-LINUX
+    runs-on: RUNNER-LINUX2
+    #if: ${{false}} # disable the job:deploy
+    if: github.repository == 'nabskimcode/speedylux'
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Detect New Changes in Monorepo
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            backend: 
+              - 'speedylux-backend/**'
+            frontend:
+              - 'speedyLux/**'
+          
+      - name: Set Node.JS 14x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Node version
+        run: node --version
+
+      
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+         
+
+      - name: Build Backend
+        if: steps.changes.outputs.backend == 'true'
+        run: |
+         npm ci
+         npm run build --if-present
+      - name: Build Frontend
+        if: steps.changes.outputs.frontend == 'true'
+        run: |
+          npm ci
+          npm run build --if-present
+    
+     
+    
+
+  
+  
