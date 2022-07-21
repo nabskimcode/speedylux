@@ -49,10 +49,6 @@ jobs:
       - name: Node version
         run: node --version
 
-      
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
          
 
       - name: Build Backend
