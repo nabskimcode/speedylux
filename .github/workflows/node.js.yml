@@ -18,11 +18,19 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    defaults:
-       run:
-        working-directory: speedylux-backend
+ 
     steps:
     - uses: actions/checkout@v3
+    - name: Detect New Changes in Monorepo
+      uses: nabs/paths-filter@v2
+      id: changes
+      with:
+          base: ${{ github.ref }}
+          filters: |
+            backend: 
+              - 'speedylux-backend/**'
+            
+           
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
