@@ -18,15 +18,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: speedylux-backend
+  
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
          node-version: ${{ matrix.node-version }}
          cache: 'npm'
+         cache-dependency-path: './speedy-lux-backend/package-lock.json'
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
