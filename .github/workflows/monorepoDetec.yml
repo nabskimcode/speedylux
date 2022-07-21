@@ -63,10 +63,10 @@ jobs:
       - name: Build Frontend
         if: steps.changes.outputs.frontend == 'true'
         run: |
+          if [ -e package-lock.json ]; then
           npm ci
           else
           npm i
-          npm run build --if-present
     
      
     
