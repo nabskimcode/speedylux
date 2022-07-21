@@ -18,6 +18,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
     timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: speedylux-backend
   
     steps:
       - uses: actions/checkout@v3
